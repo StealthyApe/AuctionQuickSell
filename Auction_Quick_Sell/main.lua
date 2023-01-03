@@ -127,7 +127,6 @@ end
 
  function events: NEW_AUCTION_UPDATE(...) -- used to automatically create auctions by forcing the currently selected item through the auctionmaker
     name, texture, count, quality, canUse, vendor, pricePerUnit, stackCount, totalCount, itemID = GetAuctionSellItemInfo()
-    print("Program here")
     if name == nil then return end
     if AucQS_settings_live.is_auto == true then
         Prep_item();
