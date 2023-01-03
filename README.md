@@ -7,7 +7,7 @@ This addon simply creates auctions based on the multiple provided by the user fo
 
 ## Commands
 typing **/aucqs help** will provide a list of available commands but i'll also list them here
-### Current values
+### Currentvalues
 Displays all user definable values
 ### Autochange
 This changes the autosell mode
