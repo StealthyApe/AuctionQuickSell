@@ -17,42 +17,26 @@ local LE_Button
 local frame, events = CreateFrame("Frame"), {};
 
 
-local LE_Button_Name = ("Test1"); --Place Button name you would like to use.
-local LE_Button_Width = (100); --Place the width you would like to use.
-local LE_Button_Height = (50); --Place the Height you would like to use.
-local LE_Button_Inherit = ("UIPanelButtonTemplate"); --Place here any inherits you would like to use.
-local LE_Button_Anchor = ("TOP"); --LEFT, TOPLEFT, TOP, TOPRIGHT, RIGHT, CENTER, BOTTOMRIGHT, BOTTOM, BOTTOMLEFT
-local LE_Button_Anchor1 = ("TOP"); --LEFT, TOPLEFT, TOP, TOPRIGHT, RIGHT, CENTER, BOTTOMRIGHT, BOTTOM, BOTTOMLEFT
-local LE_Button_X = (0); --Alignment on the x axis
-local LE_Button_Y = (0); --Alignment on the y axis
-local LE_Button_Parent = (UIParent); -- Frame in which you would like to make parent
+local LE_Button_Name = ("Test1");
+local LE_Button_Width = (100); 
+local LE_Button_Height = (50); 
+local LE_Button_Inherit = ("UIPanelButtonTemplate"); 
+local LE_Button_Anchor = ("TOP"); 
+local LE_Button_Anchor1 = ("TOP"); 
+local LE_Button_X = (0);
+local LE_Button_Y = (0);
+local LE_Button_Parent = (UIParent);
 
--- Do not edit this section.
 function LE_Button_New()
 	LE_Button = CreateFrame("Button",LE_Button_Name,LE_Button_Parent,LE_Button_Inherit);
 	LE_Button:SetWidth(LE_Button_Width);
 	LE_Button:SetHeight(LE_Button_Height);
 	LE_Button:SetPoint(LE_Button_Anchor, LE_Button_Parent, LE_Button_Anchor1, LE_Button_X, LE_Button_Y);
     LE_Button:SetText("Sell");
-	-- Register handlers.
-	LE_Button:SetScript("OnClick", LE_Button_OnClick);
-	LE_Button:SetScript("PostClick", LE_Button_PostClick);
-	LE_Button:SetScript("PreClick", LE_Button_PreClick);
-	-- End of Register handlers.
+    LE_Button:SetScript("OnClick", LE_Button_OnClick);
 end
 
 
--- Button Functions
-
-
-function LE_Button_PostClick()
-	--Place your PostClick code here.
-end
-
-function LE_Button_PreClick()
-	-- Place your PreClick code here.
-end
--- End of Button Functions
 
 
 function Prep_item()
@@ -86,8 +70,6 @@ function Prep_item()
         bo = math.floor(vendor * AucQS_settings_live.orange_salt * AucQS_settings_live.down_scale_BO)
         return
     end
-
-    return
 end
 
 
@@ -195,10 +177,6 @@ frame:SetScript("OnEvent", function(self, event, ...)
 for k, v in pairs(events) do
     frame:RegisterEvent(k);
 end
-SLASH_SETAUTO1 = "/changeauto"
-SLASH_GETAUTO1 = "/autostate"
-SLASH_SETSELLALL1 = "/stacksell"
-SLASH_GETSELLALL1 = "/stackstate"
 
 SLASH_AQS1 = "/AucQS"
 SLASH_AQS2 = "/aucqs"
@@ -218,6 +196,8 @@ function SlashCmdList.AQS(msg)
     end
     if args[1] == "HELP" then
         print("list of commands")
+        print("Current values")
+        print("Displays all user definable values")
         print("Autochange")
         print("This changes the autosell mode")
         print("Autostate")
@@ -228,6 +208,17 @@ function SlashCmdList.AQS(msg)
         print("This lets you know if the stacksell feature is enabled")
         print("Grey/White/Green/Blue/Purple/Orange on it's own to find out the current multiplier or follow it with a number to change that value")
         print("Bidunder/Buyoutunder returns the % under the maximum theoretical price follow this with a whole number to set a new percent")
+    elseif args[1] == "CURRENTVALUES" then
+        print("Auto sell",AucQS_settings_live.is_auto)
+        print("Auto stack sell",AucQS_settings_live.sell_all)
+        print("Bid Downscale percentage",AucQS_settings_live.down_scale_bid * 100, "%")
+        print("Buyout Downscale percentage",AucQS_settings_live.down_scale_BO * 100, "%")
+        print("Grey Multiplier",AucQS_settings_live.grey_salt) 
+        print("White Multiplier",AucQS_settings_live.white_salt)
+        print("Green Multiplier",AucQS_settings_live.green_salt)
+        print("Rare Multiplier",AucQS_settings_live.blue_salt)
+        print("Purple Multiplier",AucQS_settings_live.purple_salt)
+        print("Orange Multiplier",AucQS_settings_live.orange_salt)
     elseif args[1] == "BIDUNDER" then
         if count > 1 then
             local new_down_under_scale_bid = tonumber(args[2])
@@ -353,26 +344,5 @@ function SlashCmdList.AQS(msg)
     end
 end
 
-function SlashCmdList.SETSELLALL(msg)
-    AucQS_settings_live.sell_all = not AucQS_settings_live.sell_all
-    print("Changed stack sell status")
-    print("stack sell mode now")
-    print (AucQS_settings_live.sell_all)
-end
-function SlashCmdList.GETSELLALL(msg)
-    print("Current auto state")
-    print(AucQS_settings_live.sell_all)
-end
-
-function SlashCmdList.SETAUTO(msg)
-    AucQS_settings_live.is_auto = not AucQS_settings_live.is_auto
-    print("Changed auto status")
-    print("Auto auction mode now")
-    print (AucQS_settings_live.is_auto)
-end
-function SlashCmdList.GETAUTO(msg)
-    print("Current auto state")
-    print(AucQS_settings_live.is_auto)
-end
 
 
