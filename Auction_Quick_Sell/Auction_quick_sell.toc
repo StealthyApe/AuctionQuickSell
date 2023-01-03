@@ -1,0 +1,10 @@
+## DefaultState: disabled
+## Interface: 30300
+## Title: Auction_Quick_Sell
+## SavedVariables: AucQS_settings
+## Author : Covertmonkey
+## Notes: Addon used to quickly sell items to the ah bot on Azerothcore style private servers
+## Version: 0.5
+
+
+main.lua
