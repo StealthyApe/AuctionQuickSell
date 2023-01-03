@@ -9,7 +9,7 @@ local green = 2;
 local blue = 3;
 local purple = 4;
 local orange = 5;
-local name,quality,vendor,stackCount, totalCount -- stores info from fetchs
+local name, texture, count, quality, canUse, vendor, pricePerUnit, stackCount, totalCount, itemID  -- stores info from fetchs
 local bid
 local bo
 local LE_Button
@@ -70,6 +70,7 @@ function Prep_item() -- prepares the bid and bo values for items by multipliying
         bo = math.floor(vendor * AucQS_settings_live.orange_salt * AucQS_settings_live.down_scale_BO)
         return
     end
+    return
 end
 
 
@@ -115,8 +116,6 @@ local function auctionMaker5000() -- creates the auctions
         end
         StartAuction(bid,bo,runtime,stackCount,total_stacks);
     end
-    bid = 1 -- to reset the values for next time
-    bo = 1
 end
 
 function LE_Button_OnClick() --handles the button clicking auto mode is turned off
@@ -127,7 +126,8 @@ end
 
 
  function events: NEW_AUCTION_UPDATE(...) -- used to automatically create auctions by forcing the currently selected item through the auctionmaker
-    name,quality, vendor, stackCount, totalCount = GetAuctionSellItemInfo();
+    name, texture, count, quality, canUse, vendor, pricePerUnit, stackCount, totalCount, itemID = GetAuctionSellItemInfo()
+    print("Program here")
     if name == nil then return end
     if AucQS_settings_live.is_auto == true then
         Prep_item();
