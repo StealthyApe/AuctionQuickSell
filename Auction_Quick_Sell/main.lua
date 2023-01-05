@@ -36,10 +36,14 @@ function LE_Button_New() -- Creates a Button for manual users
     LE_Button:SetScript("OnClick", LE_Button_OnClick);
 end
 
+local function convert_to_yn(bool_arg)
+    if bool_arg == true then return "On"
+    else
+        return "Off"
+    end
+end
 
-
-
-function Prep_item() -- prepares the bid and bo values for items by multipliying them by the various salts and down scales
+local function Prep_item() -- prepares the bid and bo values for items by multipliying them by the various salts and down scales
     if quality == grey then
         bid = math.floor(vendor * AucQS_settings_live.grey_salt * AucQS_settings_live.down_scale_bid)
         bo = math.floor(vendor * AucQS_settings_live.grey_salt * AucQS_settings_live.down_scale_BO)
@@ -208,8 +212,8 @@ function SlashCmdList.AQS(msg) -- handles all the chat functions for the addon, 
         print("Grey/White/Green/Blue/Purple/Orange on it's own to find out the current multiplier or follow it with a number to change that value")
         print("Bidunder/Buyoutunder returns the % under the maximum theoretical price follow this with a whole number to set a new percent")
     elseif args[1] == "CURRENTVALUES" then
-        print("Auto sell",AucQS_settings_live.is_auto)
-        print("Auto stack sell",AucQS_settings_live.sell_all)
+        print("Auto sell",convert_to_yn(AucQS_settings_live.is_auto))
+        print("Auto stack sell",convert_to_yn(AucQS_settings_live.sell_all))
         print("Bid Downscale percentage",AucQS_settings_live.down_scale_bid * 100, "%")
         print("Buyout Downscale percentage",AucQS_settings_live.down_scale_BO * 100, "%")
         print("\124cff888888Grey Multiplier\124r",AucQS_settings_live.grey_salt) 
@@ -324,20 +328,20 @@ function SlashCmdList.AQS(msg) -- handles all the chat functions for the addon, 
         print(AucQS_settings_live.orange_salt)
     elseif args[1] == "AUTOCHANGE" then
         AucQS_settings_live.is_auto = not AucQS_settings_live.is_auto
-        print("Changed auto status")
-        print("Auto auction mode now")
-        print (AucQS_settings_live.is_auto)
+        print("Changed auto sell status")
+        print("Auto sell auction mode now")
+        print (convert_to_yn(AucQS_settings_live.is_auto))
     elseif args[1] == "AUTOSTATE" then
-        print("Current auto state")
-        print(AucQS_settings_live.is_auto)
+        print("Current auto sell state")
+        print(convert_to_yn(AucQS_settings_live.is_auto))
     elseif args[1] == "STACKCHANGE" then
         AucQS_settings_live.sell_all = not AucQS_settings_live.sell_all
-        print("Changed stack sell status")
-        print("stack sell mode now")
-        print (AucQS_settings_live.sell_all)
+        print("Changed auto stack sell status")
+        print("stack auto stack sell mode now")
+        print (convert_to_yn(AucQS_settings_live.sell_all))
     elseif args[1] == "STACKSTATE" then
-        print("Current auto state")
-        print(AucQS_settings_live.is_auto)
+        print("Current auto stack sell state")
+        print(convert_to_yn(AucQS_settings_live.is_auto))
     else
         print("Sorry invalid command")
     end
